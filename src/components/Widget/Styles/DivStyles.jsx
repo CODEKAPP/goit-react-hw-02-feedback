@@ -38,6 +38,18 @@ export const DivContainerStatistics = styled(DivContainer)`
   /* align-items: flex-start; */
   width: 70%;
 `;
+export const DivContainerPhonebook = styled(DivContainer)`
+  background-color: white;
+  /* border: 1px solid black; */
+  border-radius: 20px;
+  gap: 2px;
+  padding: 0;
+  margin: 0;
+  /* align-items: flex-start; */
+  width: 70%;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+  margin: 10px;
+`;
 
 // Estilos para el Section
 export const DivContainerSection = styled(DivContainer)`

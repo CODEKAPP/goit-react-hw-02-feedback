@@ -1,0 +1,78 @@
+import React, { useState } from 'react';
+import { FormStyleContainer } from './Styles/FormStyles';
+import { InputStyle } from './Styles/InputStyle';
+import { ButtonAdd } from '../Widget/Styles/ButtonStyles';
+import { LabelStyle } from './Styles/LabelStyle';
+import { StyledH1 } from '../Widget/Styles/TitleStyles';
+
+const ContactForm = ({ addContact }) => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+  const [nameValid, setNameValid] = useState(false);
+  const [numberValid, setNumberValid] = useState(false);
+
+  const handleNameChange = e => {
+    setName(e.target.value);
+    setNameValid(e.target.value.trim().length >= 3);
+  };
+
+  const handleNumberChange = e => {
+    setNumber(e.target.value);
+    setNumberValid(e.target.value.trim().length >= 4);
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (nameValid && numberValid) {
+      const newContact = {
+        id: Math.random().toString(36).substr(2, 9),
+        name: name.trim(),
+        number: number.trim(),
+      };
+      //  console.log(newContact);
+      addContact(newContact);
+      setName('');
+      setNumber('');
+      setNameValid(false);
+      setNumberValid(false);
+    }
+  };
+
+  return (
+    <>
+      <StyledH1>Phonebook</StyledH1>
+      <FormStyleContainer onSubmit={handleSubmit}>
+        <LabelStyle htmlFor="name">Name</LabelStyle>
+        <InputStyle
+          type="text"
+          name="name"
+          placeholder="Monkey D'Luffy"
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="El nombre puede contener solo letras, apóstrofe, guión y espacios. Por ejemplo Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          required
+          value={name}
+          onChange={handleNameChange}
+        />
+
+        <LabelStyle htmlFor="number">Number</LabelStyle>
+        <InputStyle
+          type="tel"
+          name="number"
+          placeholder="+57 123 456 4565"
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Número no válido. El número de teléfono debe ser dígitos y puede contener espacios, guiones, paréntesis y puede comenzar con +."
+          required
+          value={number}
+          onChange={handleNumberChange}
+          disabled={!nameValid}
+        />
+
+        <ButtonAdd type="submit" disabled={!numberValid}>
+          Add Contact
+        </ButtonAdd>
+      </FormStyleContainer>
+    </>
+  );
+};
+
+export default ContactForm;

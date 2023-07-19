@@ -6,7 +6,6 @@ export const StyledH1 = styled.h1`
   font-weight: 700;
   color: #000000;
   padding: 20px;
-
   text-shadow: #846161 5px 5px 10px;
 `;
 
@@ -17,7 +16,6 @@ export const StyledH2 = styled(StyledH1)`
   text-shadow: #6a7f8d 3px 3px 10px;
   padding: 0;
   margin-bottom: 10px;
-
   /* text-shadow: 5px 5px #558abb; */
 `;
 export const StatisticsTitle = styled(StyledH1)`
@@ -28,6 +26,5 @@ export const StatisticsTitle = styled(StyledH1)`
   margin-bottom: 10px;
   display: flex;
   align-items: center !important;
-
   /* text-shadow: 5px 5px #558abb; */
 `;
