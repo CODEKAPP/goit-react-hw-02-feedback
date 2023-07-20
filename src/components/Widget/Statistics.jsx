@@ -5,7 +5,12 @@ import {
   DivContainerStatisticsParagraph,
 } from './Styles/DivStyles';
 import { StatisticsTitle } from './Styles/TitleStyles';
-import { Paragraph, Paragraph2, Paragraph3, Paragraph4 } from './Styles/ParagraphStyles';
+import {
+  Paragraph,
+  Paragraph2,
+  Paragraph3,
+  Paragraph4,
+} from './Styles/ParagraphStyles';
 
 const Statistics = ({ good, neutral, bad, total, positivePercentage }) => {
   return (
@@ -26,11 +31,8 @@ const Statistics = ({ good, neutral, bad, total, positivePercentage }) => {
           Total <Paragraph>{total}</Paragraph>
         </Paragraph2>
       </DivContainerStatisticsParagraph>
-
-      <Paragraph3>Positive feedback:<Paragraph4>
-        {positivePercentage}%
-      </Paragraph4>
-
+      <Paragraph3>
+        Positive feedback:<Paragraph4>{positivePercentage}%</Paragraph4>
       </Paragraph3>
     </DivContainerStatistics>
   );

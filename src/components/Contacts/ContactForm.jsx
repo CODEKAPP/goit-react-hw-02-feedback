@@ -5,36 +5,77 @@ import { ButtonAdd } from '../Widget/Styles/ButtonStyles';
 import { LabelStyle } from './Styles/LabelStyle';
 import { StyledH1 } from '../Widget/Styles/TitleStyles';
 
+// const ContactForm = ({ addContact }) => {
+//   const [name, setName] = useState('');
+//   const [number, setNumber] = useState('');
+//   const [nameValid, setNameValid] = useState(false);
+//   const [numberValid, setNumberValid] = useState(false);
+
+//   const handleNameChange = e => {
+//     setName(e.target.value);
+//     setNameValid(e.target.value.trim().length >= 3);
+//   };
+
+//   const handleNumberChange = e => {
+//     setNumber(e.target.value);
+//     setNumberValid(e.target.value.trim().length >= 4);
+//   };
+
+//   const handleSubmit = e => {
+//     e.preventDefault();
+//     if (nameValid && numberValid) {
+//       const newContact = {
+//         id: Math.random().toString(36).substr(2, 9),
+//         name: name.trim(),
+//         number: number.trim(),
+//       };
+//       //  console.log(newContact);
+//       addContact(newContact);
+//       setName('');
+//       setNumber('');
+//       setNameValid(false);
+//       setNumberValid(false);
+//     }
+//   };
+
 const ContactForm = ({ addContact }) => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-  const [nameValid, setNameValid] = useState(false);
-  const [numberValid, setNumberValid] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    number: '',
+    nameValid: false,
+    numberValid: false,
+  });
 
-  const handleNameChange = e => {
-    setName(e.target.value);
-    setNameValid(e.target.value.trim().length >= 3);
-  };
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    const trimmedValue = value.trim();
+    const isValid = trimmedValue.length >= (name === 'name' ? 3 : 4);
 
-  const handleNumberChange = e => {
-    setNumber(e.target.value);
-    setNumberValid(e.target.value.trim().length >= 4);
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: trimmedValue,
+      [`${name}Valid`]: isValid,
+    }));
   };
 
   const handleSubmit = e => {
     e.preventDefault();
+    const { name, number, nameValid, numberValid } = formData;
+
     if (nameValid && numberValid) {
       const newContact = {
         id: Math.random().toString(36).substr(2, 9),
-        name: name.trim(),
-        number: number.trim(),
+        name: name,
+        number: number,
       };
-      //  console.log(newContact);
+
       addContact(newContact);
-      setName('');
-      setNumber('');
-      setNameValid(false);
-      setNumberValid(false);
+      setFormData({
+        name: '',
+        number: '',
+        nameValid: false,
+        numberValid: false,
+      });
     }
   };
 
@@ -50,8 +91,10 @@ const ContactForm = ({ addContact }) => {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="El nombre puede contener solo letras, apóstrofe, guión y espacios. Por ejemplo Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
-          value={name}
-          onChange={handleNameChange}
+          value={formData.name}
+          onChange={handleInputChange}
+          // value={name}
+          // onChange={handleNameChange}
         />
 
         <LabelStyle htmlFor="number">Number</LabelStyle>
@@ -62,12 +105,16 @@ const ContactForm = ({ addContact }) => {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Número no válido. El número de teléfono debe ser dígitos y puede contener espacios, guiones, paréntesis y puede comenzar con +."
           required
-          value={number}
-          onChange={handleNumberChange}
-          disabled={!nameValid}
+          value={formData.number}
+          onChange={handleInputChange}
+          disabled={!formData.nameValid}
+          // value={number}
+          // onChange={handleNumberChange}
+          // disabled={!nameValid}
         />
 
-        <ButtonAdd type="submit" disabled={!numberValid}>
+        <ButtonAdd type="submit" disabled={!formData.numberValid}>
+          {/* <ButtonAdd type="submit" disabled={!numberValid}> */}
           Add Contact
         </ButtonAdd>
       </FormStyleContainer>

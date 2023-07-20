@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { DeleteButton } from '../Widget/Styles/ButtonStyles';
 import { ListStyle, ItemList } from './Styles/ListStyle';
 
